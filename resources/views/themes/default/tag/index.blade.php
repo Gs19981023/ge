@@ -33,6 +33,7 @@
                 <li @if($source_type==='questions') class="active" @endif ><a href="{{ route('ask.tag.index',['id'=>$tag->id]) }}">问答</a></li>
                 <li @if($source_type==='articles') class="active" @endif ><a href="{{ route('ask.tag.index',['id'=>$tag->id,'source_type'=>'articles']) }}">文章</a></li>
                 <li @if($source_type==='details') class="active" @endif ><a href="{{ route('ask.tag.index',['id'=>$tag->id,'source_type'=>'details']) }}">百科</a></li>
+                <li @if($source_type==='files') class="active" @endif ><a href="{{ route('ask.tag.index',['id'=>$tag->id,'source_type'=>'files']) }}">资料</a></li>
             </ul>
             <div class="tab-content">
                 <div class="stream-list">
@@ -94,19 +95,32 @@
                                 </div>
                             </section>
                         @endforeach
-                    @else
+                    @elseif($source_type==='details')
                         <div class="text-fmt mt-10">{!! $tag->description  !!}</div>
+                    @else
+                        <div >
+                          @foreach($sources as $file )
+                            <section class="stream-list-item">
+                         <div class="media-body">
+                        <h5 class="mt-0">{{$file['name']}}</h5>
+                            {{$file['desc']}}
+                            <br>
+                            <div>上传人：花无缺</div>
+                            <a href="{{$file['url']}}"><button type="button" class="btn btn-primary">下载</button></a>
+                        </div>
+                            </section>
+                        @endforeach
+
+                        </div>
                     @endif
 
 
 
                 </div>
 
-                @if($source_type!=='details')
-                <div class="text-center">
-                    {!! str_replace('/?', '?', $sources->render()) !!}
-                </div>
-                @endif
+
+
+
             </div>
         </div>
 

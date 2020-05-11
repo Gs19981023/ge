@@ -40,6 +40,8 @@
                 <textarea name="summary" class="form-control" placeholder="文章摘要">{{ old('summary','') }}</textarea>
             </div>
 
+
+
             <div class="row">
                 <div class="col-xs-4">
                     <select name="category_id" id="category_id" class="form-control">
@@ -55,6 +57,8 @@
                     </select>
                 </div>
             </div>
+
+
 
             <div class="row mt-20">
                 <div class="col-xs-12 col-md-11">
