@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Files;
+use App\Models\Tag;
+use App\Services\CaptchaService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -44,7 +48,7 @@ class FileController extends Controller
 
             $file      = $request->file('file');
             $extension = $file->getClientOriginalExtension();
-            $filePath  = 'files / ' . gmdate("Y") . "/" . gmdate("m") . "/" . uniqid(str_random(8)) . ' . ' . $extension;
+            $filePath  = 'files/' . gmdate("Y") . "/" . gmdate("m") . "/" . uniqid(str_random(8)) . ' . ' . $extension;
             Storage::disk('local')->put($filePath, File::get($file));
             $data['url'] = str_replace("/", "-", $filePath);
         }
