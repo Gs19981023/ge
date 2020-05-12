@@ -57,10 +57,10 @@
                     @endif
                     <li @if(request()->route()->getName() == 'website.ask') class="active" @endif><a href="{{ route('website.ask') }}">经验贴</a></li>
                     <li @if(request()->route()->getName() == 'website.blog') class="active" @endif><a href="{{ route('website.blog') }}">文章 </a></li>
-                    <li @if(request()->route()->getName() == 'website.topic') class="active" @endif><a href="{{ route('website.topic') }}"> 话题(经验) </a></li>
+                    <li @if(request()->route()->getName() == 'website.topic') class="active" @endif><a href="{{ route('website.topic') }}"> 话题 </a></li>
                     <!-- <li @if(request()->route()->getName() == 'website.shop') class="active" @endif><a href="{{ route('website.shop') }}">荣誉墙 </a></li>
                     <li @if(request()->route()->getName() == 'website.test') class="active" @endif><a href="{{ route('website.test') }}">测试 </a></li> -->
-                   <li @if(request()->route()->getName() == 'website.resource') class="active" @endif><a href="{{ route('website.resource') }}">考研资料 </a></li>
+                {{--    <li @if(request()->route()->getName() == 'website.resource') class="active" @endif><a href="{{ route('website.resource') }}">考研资料 </a></li> --}}
                     <li @if(request()->route()->getName() == 'website.school') class="active" @endif><a href="{{ route('website.school') }}">院校库 </a></li>
                           
 

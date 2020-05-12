@@ -132,6 +132,7 @@
             <div class="side-alert alert alert-link">
                 <a href="{{ route('ask.question.create') }}" class="btn btn-warning btn-block">我要提问</a>
                 <a href="{{ route('blog.article.create') }}" class="btn btn-primary btn-block">分享经验</a>
+                 <a href="{{ route('blog.file.create') }}" class="btn btn-info btn-block">分享资料</a>
             </div>
             @if(Setting()->get('open_user_sign'))
                 <div class="side-sign alert alert-link">

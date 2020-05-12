@@ -222,6 +222,12 @@ Route::Group(['namespace' => 'Blog'], function () {
         Route::post('article/store', ['middleware' => 'ban.user', 'as' => 'blog.article.store', 'uses' => 'ArticleController@store']);
         Route::get('article/edit/{id}', ['as' => 'blog.article.edit', 'uses' => 'ArticleController@edit'])->where(['id' => '[0-9]+']);
         Route::post('article/update', ['middleware' => 'ban.user', 'as' => 'blog.article.update', 'uses' => 'ArticleController@update']);
+
+        /*文件上传*/
+        Route::get('file/create', ['as' => 'blog.file.create', 'uses' => 'FileController@create']);
+        Route::post('file/store', ['middleware' => 'ban.user', 'as' => 'blog.file.store', 'uses' => 'FileController@store']);
+        Route::get('file/download/{filename}', ['as' => 'blog.file.download', 'uses' => 'FileController@download']);
+
     });
 
 });
