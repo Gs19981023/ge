@@ -48,7 +48,7 @@ class FileController extends Controller
 
             $file      = $request->file('file');
             $extension = $file->getClientOriginalExtension();
-            $filePath  = 'files/' . gmdate("Y") . "/" . gmdate("m") . "/" . uniqid(str_random(8)) . ' . ' . $extension;
+            $filePath  = 'files/' . gmdate("Y") . "/" . gmdate("m") . "/" . uniqid(str_random(8)) . '.' . $extension;
             Storage::disk('local')->put($filePath, File::get($file));
             $data['url'] = str_replace("/", "-", $filePath);
         }

@@ -106,6 +106,7 @@
                             文&nbsp;&nbsp;件&nbsp;&nbsp;名： {{$file['name']}}</h5>
                            <div>描&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述： {{$file['summary']}} </div>
                             <div>上传时间： {{$file['created_at']}}</div>
+                            <div>文件类型： {{ explode('.', $file['url'] )[1]}}</div>
                              <div>上&nbsp;&nbsp;传&nbsp;&nbsp;人： {{$file['user_name']}}</div>
                              <br/>
                             <a href="/file/download/{{$file['url']}}"><button type="button" class="btn btn-primary">下载</button></a>
