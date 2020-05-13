@@ -8,13 +8,19 @@
     <link href="{{ asset('/static/js/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet">
 @endsection
 
+
 @section('content')
 
-    <div class="row mt-10">
+
+    <div class="row mt-10" id="app">
         <ol class="breadcrumb">
             <li><a href="{{ route('website.blog') }}">文章</a></li>
             <li class="active">撰写文章</li>
         </ol>
+
+
+
+
         <form id="article_form" method="POST" role="form" enctype="multipart/form-data" action="{{ route('blog.article.store') }}">
             <input type="hidden" id="editor_token" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" id="tags" name="tags" value="" />
@@ -29,6 +35,21 @@
                 <input type="file" name="logo"/>
                 @if($errors->has('logo')) <p class="help-block">{{ $errors->first('logo') }}</p> @else <p class="help-block">建议尺寸200*120</p> @endif
             </div>
+
+
+
+        <div class="form-group" id="uploadfile">
+               <label>上传附件</label>
+            <el-upload class="upload-demo" action="/file/upload" multiple :limit="10" :file-list="fileList"   :before-remove="beforeRemove"  :on-success="successFile" :on-remove="removeFile">
+                <el-button size="small" type="primary" style="background-color:#008151;border-color: #008151; ">点击上传</el-button>
+                <div slot="tip" class="el-upload__tip">文件不要过大</div>
+            </el-upload>
+        </div>
+
+
+        <input name="files" v-model="JSON.stringify(files)"  style="display: none;">
+
+
             <div class="form-group  @if($errors->has('content')) has-error @endif">
                 <label for="article_editor">文章正文：</label>
                 <div id="article_editor">{!! old('content','') !!}</div>
@@ -83,6 +104,11 @@
     <script src="{{ asset('/static/js/summernote/summernote.min.js') }}"></script>
     <script src="{{ asset('/static/js/summernote/lang/summernote-zh-CN.min.js') }}"></script>
     <script src="{{ asset('/static/js/select2/js/select2.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -103,5 +129,56 @@
             });
 
         });
+
+
+
+    var app = new Vue({
+      el: '#app',
+      data() {
+       return{
+        message: 'Hello Vue!',
+       fileList: [],
+       files:[]
+       }
+     },
+     methods:{
+       beforeRemove(file, fileList) {
+        
+        return this.$confirm(`确定移除 ${ file.name }？`);
+
+      },
+      successFile(res,file){
+        console.log(this.fileList)
+        this.files.push(
+        {
+            name:file.name,
+            path:file.response.url
+        }
+        )
+      },
+      removeFile(file, fileList){
+        var files =    this.files;
+        for (var i = files.length - 1; i >= 0; i--) {
+            if(files[i].path  == file.response.url){
+                files.splice(i, 1);
+                break;
+            }
+        }
+        this.files = files;
+      }
+
+     }
+    })
+
     </script>
+
+    <style type="text/css">
+    
+    #uploadfile input{
+        display: none;
+    }
+
+</style>
 @endsection
+
+

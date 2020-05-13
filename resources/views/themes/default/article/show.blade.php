@@ -60,7 +60,19 @@
                 </div>
                 @endif
             </div>
-            <div class="widget-relation">
+
+            <div>
+               
+                    <ul class="list-group">
+                @foreach($files as $file)
+                      
+ <a href="/file/download/{{$file['filepath']}}"><button type="button" class="btn btn-primary">{{$file['filename']}}</button></a>
+
+                 @endforeach
+                     </ul>  
+      
+            </div>
+           {{--  <div class="widget-relation">
                 <div class="row">
                     <div class="col-md-6">
                         <h4>你可能感兴趣的文章</h4>
@@ -90,7 +102,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
             <div class="widget-answers mt-15">
                 <h2 class="h4 post-title">{{ $article->comments }} 条评论</h2>
                 @include('theme::comment.collapse',['comment_source_type'=>'article','comment_source_id'=>$article->id,'hide_cancel'=>true])

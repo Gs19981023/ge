@@ -22,12 +22,6 @@ class FileController extends Controller
         return response()->download(realpath(base_path('/')) . '\\storage\\app\\' . str_replace("-", "\\", $filename), $filename);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, CaptchaService $captchaService)
     {
         $loginUser = $request->user();
@@ -86,5 +80,26 @@ class FileController extends Controller
 
         return view("theme::file.create", ['message' => '上传失败']);
 
+    }
+
+    public function uploadfile(Request $request, CaptchaService $captchaService)
+    {
+
+        $res = array('code' => 0,
+            'msg'               => "上传失败");
+
+        if ($request->hasFile('file')) {
+
+            $file      = $request->file('file');
+            $extension = $file->getClientOriginalExtension();
+            $filePath  = 'files/' . gmdate("Y") . "/" . gmdate("m") . "/" . uniqid(str_random(8)) . '.' . $extension;
+            Storage::disk('local')->put($filePath, File::get($file));
+
+            $res = array('code' => 1,
+                'msg'               => "上传成功",
+                'url'               => str_replace("/", "-", $filePath));
+        }
+
+        return json_encode($res);
     }
 }

@@ -228,6 +228,8 @@ Route::Group(['namespace' => 'Blog'], function () {
         Route::post('file/store', ['middleware' => 'ban.user', 'as' => 'blog.file.store', 'uses' => 'FileController@store']);
         Route::get('file/download/{filename}', ['as' => 'blog.file.download', 'uses' => 'FileController@download']);
 
+        Route::post('file/upload', ['middleware' => 'ban.user', 'as' => 'blog.file.upload', 'uses' => 'FileController@uploadfile']);
+
     });
 
 });
